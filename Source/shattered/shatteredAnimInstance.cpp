@@ -16,17 +16,7 @@ void UshatteredAnimInstance::UpdateAnimationProperties(float DeltaTime) {
 
 		bIsInAir = MainPlayer->GetCharacterMovement()->IsFalling();
 
-		bIsAccelerating = MainPlayer->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0.f ? true : false;
-		/*if (MainPlayer->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0.f)
-		{
-			bIsAccelerating = true;
-		}
-		else
-		{
-			bIsAccelerating = false;
-		}*/
-
-		
+		bIsAccelerating = (MainPlayer->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0.f) ? true : false;
 	}
 }
 
