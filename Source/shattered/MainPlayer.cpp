@@ -4,6 +4,7 @@
 #include "MainPlayer.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AMainPlayer::AMainPlayer() : BaseLookXRate(45.f), BaseLookYRate(45.f)
@@ -19,6 +20,10 @@ AMainPlayer::AMainPlayer() : BaseLookXRate(45.f), BaseLookYRate(45.f)
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	GetCharacterMovement()->JumpZVelocity = 900.f;
+	GetCharacterMovement()->AirControl = 0.7f;
+	GetCharacterMovement()->GravityScale = 2.f;
 }
 
 // Called when the game starts or when spawned
@@ -50,6 +55,11 @@ void AMainPlayer::MoveRight(float Value)
 	}
 }
 
+void AMainPlayer::Fire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Pew!"))
+}
+
 // Called every frame
 void AMainPlayer::Tick(float DeltaTime)
 {
@@ -70,5 +80,6 @@ void AMainPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("LookY", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMainPlayer::Fire);
 }
 
