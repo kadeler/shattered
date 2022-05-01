@@ -5,6 +5,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values
 AMainPlayer::AMainPlayer() : BaseLookXRate(45.f), BaseLookYRate(45.f)
@@ -57,8 +59,13 @@ void AMainPlayer::MoveRight(float Value)
 
 void AMainPlayer::Fire()
 {
+	if (shardShootingSound) {
+		UGameplayStatics::PlaySound2D(this, shardShootingSound);
+	}
 	UE_LOG(LogTemp, Warning, TEXT("Pew!"))
 }
+
+
 
 // Called every frame
 void AMainPlayer::Tick(float DeltaTime)
