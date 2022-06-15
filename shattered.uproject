@@ -9,7 +9,9 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine",
+				"AudioAnalyzer",
+				"UMG"
 			]
 		}
 	],
@@ -17,6 +19,11 @@
 		{
 			"Name": "ModelingToolsEditorMode",
 			"Enabled": true
+		},
+		{
+			"Name": "AudioAnalysisTools",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/54f6567f89184beb9203f6211c791175"
 		}
 	]
 }
