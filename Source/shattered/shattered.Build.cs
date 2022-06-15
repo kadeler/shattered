@@ -12,6 +12,7 @@ public class shattered : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+		PublicIncludePaths.AddRange(new string[] { "shattered/Public/Player", "shattered/Public/Components", "shattered/Public/Dev", "shattered/Public/Weapon", "shattered/Public/UI" });
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
