@@ -7,6 +7,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
+#include "Engine/SkeletalMeshSocket.h"
+#include "GameFramework/DefaultPawn.h"
 
 // Sets default values
 AMainPlayer::AMainPlayer() : BaseLookXRate(45.f), BaseLookYRate(45.f)
@@ -14,14 +16,11 @@ AMainPlayer::AMainPlayer() : BaseLookXRate(45.f), BaseLookYRate(45.f)
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 0.f;
-	CameraBoom->bUsePawnControlRotation = true;
-
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	FollowCamera->bUsePawnControlRotation = false;
+	FollowCamera->SetupAttachment(RootComponent);
+	FollowCamera->bUsePawnControlRotation = true;
+
+	GetMesh()->SetupAttachment(FollowCamera);
 
 	GetCharacterMovement()->JumpZVelocity = 900.f;
 	GetCharacterMovement()->AirControl = 0.7f;
@@ -63,6 +62,20 @@ void AMainPlayer::Fire()
 		UGameplayStatics::PlaySound2D(this, shardShootingSound);
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Pew!"))
+	const USkeletalMeshSocket* ShootingSocket = GetMesh()->GetSocketByName("ShootingSocket");
+	if (ShootingSocket)
+	{
+		const FTransform SocketTransform = ShootingSocket->GetSocketTransform(GetMesh());
+		if (BulletFlash) {
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BulletFlash, SocketTransform);
+		}
+	}
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && ArmAnimationMontage) {
+		AnimInstance->Montage_Play(ArmAnimationMontage);
+		AnimInstance->Montage_JumpToSection(FName("StartFire"));
+	}
+
 }
 
 
