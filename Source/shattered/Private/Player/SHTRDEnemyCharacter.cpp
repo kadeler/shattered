@@ -36,7 +36,7 @@ void ASHTRDEnemyCharacter::BeginPlay()
 
     OnHealthChanged(HealthComponent->GetHealth());
 
-    HealthComponent->OnHealthChanged.AddUObject(this, &ASHTRDEnemyCharacter::OnDeath);
+    HealthComponent->OnDeath.AddUObject(this, &ASHTRDEnemyCharacter::OnDeath);
     HealthComponent->OnHealthChanged.AddUObject(this, &ASHTRDEnemyCharacter::OnHealthChanged);
 }
 

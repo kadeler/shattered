@@ -26,7 +26,7 @@ protected:
     FName MuzzleSocketName = "MuzzleSocket";
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Shooting")
-    float TraceMaxDistance = 1500.0f;
+    float TraceMaxDistance = 60000.0f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Shooting")
     float AttackSpeed = 0.15f;
