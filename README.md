@@ -1,3 +1,7 @@
-# shattered
+shattered
 
-Developed with Unreal Engine 4
+**Инди шутер на Unreal Engine**
+
+Этот проект скорее проба пера, и не совсем обоснованный выбор инструментов, больше о моем процессе разработки на Unreal можете почитать тут → *и тут скоро ссылочка будет*
+
+![screenshot](https://media.discordapp.net/attachments/811387661742899260/991061114815135854/unknown.png)
